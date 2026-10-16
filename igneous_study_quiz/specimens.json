@@ -63,7 +63,10 @@
       "type": "thin_section_rock",
       "texture": "aphanitic",
       "label": "Example aphanitic thin section \u2014 replace with your own",
-      "image": "images/thin_sections/porphyritic_basalt_01.jpg",
+      "images": {
+        "ppl": "images/thin_sections/porphyritic_basalt_ppl.jpg",
+        "xpl": "images/thin_sections/porphyritic_basalt_xpl.jpg"
+      },
       "rock_name": "Porphyritic Basalt",
       "phenocryst_options": [
         "Plagioclase",
@@ -110,7 +113,10 @@
       "type": "thin_section_rock",
       "texture": "phaneritic",
       "label": "Example phaneritic thin section \u2014 replace with your own",
-      "image": "images/thin_sections/biotite_granite_01.jpg",
+      "images": {
+        "ppl": "images/thin_sections/biotite_granite_ppl.jpg",
+        "xpl": "images/thin_sections/biotite_granite_xpl.jpg"
+      },
       "rock_type": "Granite",
       "rock_type_options": [
         "Granite",
