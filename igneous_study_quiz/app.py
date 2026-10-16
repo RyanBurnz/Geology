@@ -38,6 +38,47 @@ def show_image(relative_path, caption=None, width=None):
     else:
         st.info(f"Image not added yet: `{relative_path or 'no path supplied'}`")
 
+
+def show_thin_section(item):
+    """Display a thin-section image with a PPL/XPL toggle."""
+
+    # Default to PPL the first time the app is used.
+    if "thin_section_view" not in st.session_state:
+        st.session_state.thin_section_view = "ppl"
+
+    current_view = st.session_state.thin_section_view
+    images = item.get("images", {})
+
+    # Support both the new PPL/XPL format and the old single-image format.
+    if images:
+        image = images.get(current_view)
+
+        if image:
+            show_image(image, f"Thin section — {current_view.upper()}")
+        else:
+            st.warning(
+                f"No {current_view.upper()} image has been added "
+                "for this specimen."
+            )
+    else:
+        show_image(
+            item.get("image"),
+            "Thin section — single image (PPL/XPL not configured)"
+        )
+
+    # Button switches the view without advancing the question.
+    button_label = (
+        "Switch to XPL" if current_view == "ppl"
+        else "Switch to PPL"
+    )
+
+    if st.button(button_label, key="toggle_thin_section_view"):
+        st.session_state.thin_section_view = (
+            "xpl" if current_view == "ppl" else "ppl"
+        )
+        st.rerun()
+
+
 def reset_quiz():
     for key in list(st.session_state.keys()):
         if key.startswith("quiz_") or key.startswith("answer_"):
@@ -175,7 +216,7 @@ def render_hand_sample(item, minerals):
         next_question()
 
 def render_aphanitic(item, minerals):
-    show_image(item.get("image"), "Thin section")
+    show_thin_section(item)
     a = item.get("answers", {})
     idx = st.session_state.quiz_index
     run = st.session_state.quiz_run_id
@@ -223,7 +264,7 @@ def render_aphanitic(item, minerals):
         next_question()
 
 def render_phaneritic(item, minerals):
-    show_image(item.get("image"), "Thin section")
+    show_thin_section(item)
     a = item.get("answers", {})
     idx, run = st.session_state.quiz_index, st.session_state.quiz_run_id
     st.markdown("#### Step 1 — Estimate QAP percentages")
