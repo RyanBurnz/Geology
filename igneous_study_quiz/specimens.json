@@ -1,0 +1,150 @@
+{
+  "specimens": [
+    {
+      "id": "mineral_example_quartz",
+      "type": "mineral",
+      "label": "Example mineral \u2014 replace with your own",
+      "mineral": "Quartz",
+      "mineral_options": [
+        "Quartz",
+        "Plagioclase",
+        "K-feldspar",
+        "Olivine",
+        "Pyroxene",
+        "Biotite"
+      ],
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/quartz_ppl_01.jpg",
+          "xpl": "images/minerals/quartz_xpl_01.jpg"
+        },
+        {
+          "ppl": "images/minerals/quartz_ppl_02.jpg",
+          "xpl": "images/minerals/quartz_xpl_02.jpg"
+        }
+      ],
+      "explanation": "Replace this example with the diagnostic properties your course emphasizes."
+    },
+    {
+      "id": "hand_sample_example_granite",
+      "type": "hand_sample",
+      "label": "Example hand sample \u2014 replace with your own",
+      "image": "images/hand_samples/granite_01.jpg",
+      "rock_name": "Biotite Granite",
+      "rock_options": [
+        "Granite",
+        "Biotite Granite",
+        "Diorite",
+        "Gabbro",
+        "Granodiorite"
+      ],
+      "accessory_options": [
+        "Biotite",
+        "Hornblende",
+        "Olivine",
+        "Pyroxene",
+        "Muscovite"
+      ],
+      "answers": {
+        "qap": {
+          "quartz": 30,
+          "k_feldspar": 40,
+          "plagioclase": 30
+        },
+        "accessory_minerals": [
+          "Biotite"
+        ],
+        "rock_name": "Biotite Granite"
+      },
+      "explanation": "Example values only. Replace them with your course's specimen data."
+    },
+    {
+      "id": "thin_section_example_aphanitic",
+      "type": "thin_section_rock",
+      "texture": "aphanitic",
+      "label": "Example aphanitic thin section \u2014 replace with your own",
+      "image": "images/thin_sections/porphyritic_basalt_01.jpg",
+      "rock_name": "Porphyritic Basalt",
+      "phenocryst_options": [
+        "Plagioclase",
+        "Olivine",
+        "Pyroxene",
+        "Quartz",
+        "K-feldspar"
+      ],
+      "matrix_options": [
+        "Plagioclase",
+        "Pyroxene",
+        "Olivine",
+        "Glass",
+        "Magnetite"
+      ],
+      "answers": {
+        "phenocrysts": [
+          "Plagioclase",
+          "Olivine"
+        ],
+        "phenocryst_total": 20,
+        "phenocryst_percentages": {
+          "Plagioclase": 12,
+          "Olivine": 8
+        },
+        "matrix_minerals": [
+          "Plagioclase",
+          "Pyroxene",
+          "Magnetite"
+        ],
+        "matrix_total": 78,
+        "matrix_percentages": {
+          "Plagioclase": 38,
+          "Pyroxene": 35,
+          "Magnetite": 5
+        },
+        "porosity": 2,
+        "rock_name": "Porphyritic Basalt"
+      },
+      "explanation": "Example values only; matrix and phenocryst percentages are expressed as percentages of the whole rock."
+    },
+    {
+      "id": "thin_section_example_phaneritic",
+      "type": "thin_section_rock",
+      "texture": "phaneritic",
+      "label": "Example phaneritic thin section \u2014 replace with your own",
+      "image": "images/thin_sections/biotite_granite_01.jpg",
+      "rock_type": "Granite",
+      "rock_type_options": [
+        "Granite",
+        "Diorite",
+        "Gabbro",
+        "Granodiorite",
+        "Syenite",
+        "Tonalite"
+      ],
+      "rock_name": "Biotite Granite",
+      "rock_name_options": [
+        "Granite",
+        "Biotite Granite",
+        "Hornblende Granite",
+        "Biotite Granodiorite",
+        "Diorite"
+      ],
+      "answers": {
+        "qap": {
+          "quartz": 30,
+          "k_feldspar": 40,
+          "plagioclase": 30
+        },
+        "qap_normalized": {
+          "quartz": 30,
+          "k_feldspar": 40,
+          "plagioclase": 30
+        },
+        "rock_type": "Granite",
+        "accessory_percentages": {
+          "Biotite": 8
+        }
+      },
+      "explanation": "Example values only. Replace with your actual thin-section composition."
+    }
+  ]
+}
