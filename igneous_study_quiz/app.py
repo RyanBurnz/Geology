@@ -499,7 +499,8 @@ except (OSError, json.JSONDecodeError) as exc:
     st.stop()
 
 st.session_state.all_specimens = specimens
-minerals = mineral_options(specimens)
+minerals = [item['id'] for item in specimens]
+##minerals = DEFAULT_MINERALS
 quiz_labels = {
     "mineral": "Mineral in thin section",
     "hand_sample": "Hand sample",

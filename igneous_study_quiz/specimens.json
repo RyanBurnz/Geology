@@ -1,29 +1,184 @@
 {
   "specimens": [
     {
-      "id": "m_01",
+      "id": "Biotite",
       "type": "mineral",
-      "label": "Example mineral \u2014 replace with your own",
-      "mineral": "Quartz",
-      "mineral_options": [
-        "Quartz",
-        "Plagioclase",
-        "K-feldspar",
-        "Olivine",
-        "Pyroxene",
-        "Biotite"
-      ],
+      "label": "m_01",
+      "mineral": "Biotite",
       "image_pairs": [
         {
-          "ppl": "images/minerals/quartz_ppl_01.jpg",
-          "xpl": "images/minerals/quartz_xpl_01.jpg"
+          "ppl": "images/minerals/bio_ppl_01.png",
+          "xpl": "images/minerals/bio_xpl_01.png"
         },
         {
-          "ppl": "images/minerals/quartz_ppl_02.jpg",
-          "xpl": "images/minerals/quartz_xpl_02.jpg"
+          "ppl": "images/minerals/bio_ppl_02.png",
+          "xpl": "images/minerals/bio_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/bio_ppl_03.png",
+          "xpl": "images/minerals/bio_xpl_03.png"
         }
       ],
-      "explanation": "Replace this example with the diagnostic properties your course emphasizes."
+      "explanation": "Biotite"
+    },
+    {
+      "id": "Clinopyroxene",
+      "type": "mineral",
+      "label": "m_02",
+      "mineral": "Clinopyroxene",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/cpx_ppl_01.png",
+          "xpl": "images/minerals/cpx_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/cpx_ppl_02.png",
+          "xpl": "images/minerals/cpx_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/cpx_ppl_03.png",
+          "xpl": "images/minerals/cpx_xpl_03.png"
+        }
+      ],
+      "explanation": "Clinopyroxene"
+    },
+    {
+      "id": "Hornblende",
+      "type": "mineral",
+      "label": "m_03",
+      "mineral": "Hornblende",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/horn_ppl_01.png",
+          "xpl": "images/minerals/horn_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/horn_ppl_02.png",
+          "xpl": "images/minerals/horn_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/horn_ppl_03.png",
+          "xpl": "images/minerals/horn_xpl_03.png"
+        }
+      ],
+      "explanation": "Hornblende"
+    },
+    {
+      "id": "K-feldspar",
+      "type": "mineral",
+      "label": "m_04",
+      "mineral": "K-feldspar",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/kspar_ppl_01.png",
+          "xpl": "images/minerals/kspar_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/kspar_ppl_02.png",
+          "xpl": "images/minerals/kspar_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/kspar_ppl_03.png",
+          "xpl": "images/minerals/kspar_xpl_03.png"
+        },
+        {
+          "ppl": "images/minerals/kspar_ppl_04.png",
+          "xpl": "images/minerals/kspar_xpl_04.png"
+        },
+        {
+          "ppl": "images/minerals/kspar_ppl_05.png",
+          "xpl": "images/minerals/kspar_xpl_05.png"
+        },
+        {
+          "ppl": "images/minerals/kspar_ppl_06.png",
+          "xpl": "images/minerals/kspar_xpl_06.png"
+        }
+      ],
+      "explanation": "K-feldspar"
+    },
+    {
+      "id": "Muscovite",
+      "type": "mineral",
+      "label": "m_05",
+      "mineral": "Muscovite",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/musc_ppl_01.png",
+          "xpl": "images/minerals/musc_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/musc_ppl_02.png",
+          "xpl": "images/minerals/musc_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/musc_ppl_03.png",
+          "xpl": "images/minerals/musc_xpl_03.png"
+        }
+      ],
+      "explanation": "Muscovite"
+    },
+    {
+      "id": "Olivine",
+      "type": "mineral",
+      "label": "m_06",
+      "mineral": "Olivine",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/olive_ppl_01.png",
+          "xpl": "images/minerals/olive_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/olive_ppl_02.png",
+          "xpl": "images/minerals/olive_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/olive_ppl_03.png",
+          "xpl": "images/minerals/olive_xpl_03.png"
+        }
+      ],
+      "explanation": "Olivine"
+    },
+    {
+      "id": "Orthopyroxene",
+      "type": "mineral",
+      "label": "m_07",
+      "mineral": "Orthopyroxene",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/olive_ppl_01.png",
+          "xpl": "images/minerals/olive_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/olive_ppl_02.png",
+          "xpl": "images/minerals/olive_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/olive_ppl_03.png",
+          "xpl": "images/minerals/olive_xpl_03.png"
+        }
+      ],
+      "explanation": "Orthopyroxene"
+    },
+    {
+      "id": "Quartz",
+      "type": "mineral",
+      "label": "m_01",
+      "mineral": "Quartz",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/quartz_ppl_01.png",
+          "xpl": "images/minerals/quartz_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/quartz_ppl_02.png",
+          "xpl": "images/minerals/quartz_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/quartz_ppl_03.png",
+          "xpl": "images/minerals/quartz_xpl_03.png"
+        }
+      ],
+      "explanation": "Quartz"
     },
     {
       "id": "hand_sample_example_granite",
