@@ -1,7 +1,7 @@
 {
   "specimens": [
     {
-      "id": "mineral_example_quartz",
+      "id": "m_01",
       "type": "mineral",
       "label": "Example mineral \u2014 replace with your own",
       "mineral": "Quartz",
@@ -59,10 +59,10 @@
       "explanation": "Example values only. Replace them with your course's specimen data."
     },
     {
-      "id": "tsr_01",
+      "id": "andesite_01",
       "type": "thin_section_rock",
       "texture": "aphanitic",
-      "label": "andesite_01",
+      "label": "tsr_01",
       "images": {
         "ppl": "images/thin_sections/andesite_ppl_01.png",
         "xpl": "images/thin_sections/andesite_xpl_01.png"
@@ -83,9 +83,9 @@
       "explanation": "yep the sample is the same as the basalt.... hopefully we get a hand sample in lab"
     },
     {
-      "id": "tsr_02",
+      "id": "aphanitic",
       "type": "thin_section_rock",
-      "texture": "aphanitic",
+      "texture": "tsr_02",
       "label": "basalt_01",
       "images": {
         "ppl": "images/thin_sections/basalt_ppl_01.png",
@@ -107,10 +107,10 @@
       "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
     },
     {
-      "id": "tsr_03",
+      "id": "diorite_01",
       "type": "thin_section_rock",
       "texture": "phaneritic",
-      "label": "diorite_01",
+      "label": "tsr_03",
       "images": {
         "ppl": "images/thin_sections/diorite_ppl_01.png",
         "xpl": "images/thin_sections/diorite_xpl_01.png"
@@ -131,10 +131,10 @@
       "explanation": "yep the sample is basically the same min % as the gabbro.... hopefully we get a hand sample in lab"
     },
     {
-      "id": "tsr_04",
+      "id": "gabbro_01",
       "type": "thin_section_rock",
       "texture": "phaneritic",
-      "label": "gabbro_01",
+      "label": "tsr_04",
       "images": {
         "ppl": "images/thin_sections/gabbro_ppl_01.png",
         "xpl": "images/thin_sections/gabbro_xpl_01.png"
@@ -155,10 +155,10 @@
       "explanation": "this is basically the only legible thin section (note pyroxene in gabbro is usually clino"
     },
     {
-      "id": "tsr_05",
+      "id": "granite_01",
       "type": "thin_section_rock",
       "texture": "phaneritic",
-      "label": "granite_01",
+      "label": "tsr_05",
       "images": {
         "ppl": "images/thin_sections/granite_ppl_01.png",
         "xpl": "images/thin_sections/granite_xpl_01.png"
@@ -180,10 +180,10 @@
       "explanation": "I decided to say this is muscovite over olivine as olivine rarely coexists with Quartz"
     },
     {
-      "id": "tsr_06",
+      "id": "rhyolite_01",
       "type": "thin_section_rock",
       "texture": "aphanitic",
-      "label": "rhyolite_01",
+      "label": "tsr_06",
       "images": {
         "ppl": "images/thin_sections/rhyolite_ppl_01.png",
         "xpl": "images/thin_sections/rhyolite_xpl_01.png"
