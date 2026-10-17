@@ -89,14 +89,12 @@ def show_mineral(item):
         f"{st.session_state.quiz_index}"
     )
 
-    # Randomly choose one PPL/XPL pair once per question.
     if st.session_state.get("mineral_pair_key") != question_key:
         pairs = item.get("image_pairs", [])
 
-        if pairs:
-            st.session_state.current_mineral_pair = random.choice(pairs)
-        else:
-            st.session_state.current_mineral_pair = None
+        st.session_state.current_mineral_pair = (
+            random.choice(pairs) if pairs else None
+        )
 
         st.session_state.mineral_pair_key = question_key
 
