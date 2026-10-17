@@ -13,7 +13,7 @@ st.set_page_config(page_title="Igneous Rock Study Lab", page_icon="🪨", layout
 DEFAULT_MINERALS = [
     "Quartz", "K-feldspar", "Plagioclase", "Biotite", "Hornblende",
     "Olivine", "Pyroxene", "Muscovite", "Amphibole", "Magnetite",
-    "Apatite", "Garnet", "Other / unsure"
+    "Apatite", "Garnet", "None Visible"
 ]
 
 def load_specimens():

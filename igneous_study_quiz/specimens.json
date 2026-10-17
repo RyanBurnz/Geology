@@ -67,34 +67,20 @@
         "ppl": "images/thin_sections/andesite_ppl_01.jpg",
         "xpl": "images/thin_sections/andesite_xpl_01.jpg"
       },
-      "rock_name": "Olivine Basalt",
-      "phenocryst_options": [
-        "Plagioclase",
-        "Olivine",
-        "Pyroxene",
-        "Quartz",
-        "K-feldspar"
-      ],
-      "matrix_options": [
-        "Plagioclase",
-        "Pyroxene",
-        "Olivine",
-        "Glass",
-        "Magnetite"
-      ],
+      "rock_name": "Olivine Pyroxene Andesite",
       "answers": {
         "qap": {
           "quartz": 0,
           "k_feldspar": 0,
           "plagioclase": 100
         },
-        "accessory_minerals": ["Biotite"],
+        "accessory_minerals": ["Olivine", "Pyroxene"],
         "accessory_percentages": {
           "Olivine": 5,
           "Pyroxene": 5
         }
       },
-      "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
+      "explanation": "yep the sample is the same as the basalt.... hopefully we get a hand sample in lab"
     },
     {
       "id": "basalt_01",
@@ -105,28 +91,14 @@
         "ppl": "images/thin_sections/basalt_ppl_01.jpg",
         "xpl": "images/thin_sections/basalt_xpl_01.jpg"
       },
-      "rock_name": "Olivine Basalt",
-      "phenocryst_options": [
-        "Plagioclase",
-        "Olivine",
-        "Pyroxene",
-        "Quartz",
-        "K-feldspar"
-      ],
-      "matrix_options": [
-        "Plagioclase",
-        "Pyroxene",
-        "Olivine",
-        "Glass",
-        "Magnetite"
-      ],
+      "rock_name": "Olivine Pyroxene Basalt",
       "answers": {
         "qap": {
           "quartz": 0,
           "k_feldspar": 0,
           "plagioclase": 100
         },
-        "accessory_minerals": ["Biotite"],
+        "accessory_minerals": ["Olivine", "Pyroxene"],
         "accessory_percentages": {
           "Olivine": 5,
           "Pyroxene": 5
@@ -135,48 +107,100 @@
       "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
     },
     {
-      "id": "thin_section_example_phaneritic",
+      "id": "diorite_01",
       "type": "thin_section_rock",
       "texture": "phaneritic",
-      "label": "Example phaneritic thin section \u2014 replace with your own",
+      "label": "diorite_01",
       "images": {
-        "ppl": "images/thin_sections/biotite_granite_ppl.jpg",
-        "xpl": "images/thin_sections/biotite_granite_xpl.jpg"
+        "ppl": "images/thin_sections/diorite_ppl_01.jpg",
+        "xpl": "images/thin_sections/diorite_xpl_01.jpg"
       },
-      "rock_type": "Granite",
-      "rock_type_options": [
-        "Granite",
-        "Diorite",
-        "Gabbro",
-        "Granodiorite",
-        "Syenite",
-        "Tonalite"
-      ],
-      "rock_name": "Biotite Granite",
-      "rock_name_options": [
-        "Granite",
-        "Biotite Granite",
-        "Hornblende Granite",
-        "Biotite Granodiorite",
-        "Diorite"
-      ],
+      "rock_name": "Olivine Pyroxene diorite",
       "answers": {
         "qap": {
-          "quartz": 30,
-          "k_feldspar": 40,
-          "plagioclase": 30
+          "quartz": 0,
+          "k_feldspar": 0,
+          "plagioclase": 100
         },
-        "qap_normalized": {
-          "quartz": 30,
-          "k_feldspar": 40,
-          "plagioclase": 30
-        },
-        "rock_type": "Granite",
+        "accessory_minerals": ["Olivine", "Pyroxene"],
         "accessory_percentages": {
-          "Biotite": 8
+          "Olivine": 3,
+          "Pyroxene": 5
         }
       },
-      "explanation": "Example values only. Replace with your actual thin-section composition."
+      "explanation": "yep the sample is basically the same min % as the gabbro.... hopefully we get a hand sample in lab"
+    },
+    {
+      "id": "gabbro_01",
+      "type": "thin_section_rock",
+      "texture": "phaneritic",
+      "label": "gabbro_01",
+      "images": {
+        "ppl": "images/thin_sections/gabbro_ppl_01.jpg",
+        "xpl": "images/thin_sections/gabbro_xpl_01.jpg"
+      },
+      "rock_name": "Pyroxene Olivine gabbro",
+      "answers": {
+        "qap": {
+          "quartz": 0,
+          "k_feldspar": 0,
+          "plagioclase": 100
+        },
+        "accessory_minerals": ["Olivine", "Pyroxene"],
+        "accessory_percentages": {
+          "Olivine": 12,
+          "Pyroxene": 7
+        }
+      },
+      "explanation": "this is basically the only legible thin section (note pyroxene in gabbro is usually clino"
+    },
+    {
+      "id": "granite_01",
+      "type": "thin_section_rock",
+      "texture": "phaneritic",
+      "label": "granite_01",
+      "images": {
+        "ppl": "images/thin_sections/granite_ppl_01.jpg",
+        "xpl": "images/thin_sections/granite_xpl_01.jpg"
+      },
+      "rock_name": "Horneblende Muscovite Biotite granite",
+      "answers": {
+        "qap": {
+          "quartz": 65,
+          "k_feldspar": 30,
+          "plagioclase": 5
+        },
+        "accessory_minerals": ["Biotite", "Muscovite", "Horneblende"],
+        "accessory_percentages": {
+          "Biotite": 7,
+          "Muscovite": 4,
+          "Horneblende": 1
+        }
+      },
+      "explanation": "I decided to say this is muscovite over olivine as olivine rarely coexists with Quartz"
+    },
+    {
+      "id": "rhyolite_01",
+      "type": "thin_section_rock",
+      "texture": "aphanitic",
+      "label": "rhyolite_01",
+      "images": {
+        "ppl": "images/thin_sections/rhyolite_ppl_01.jpg",
+        "xpl": "images/thin_sections/rhyolite_xpl_01.jpg"
+      },
+      "rock_name": "rhyolite",
+      "answers": {
+        "qap": {
+          "quartz": 50,
+          "k_feldspar": 30,
+          "plagioclase": 20
+        },
+        "accessory_minerals": ["None Visible"],
+        "accessory_percentages": {
+          "All": 0
+        }
+      },
+      "explanation": "yep it says on the site that they usually need chemical analysis to ID this... most QAPs are in the matrix"
     }
   ]
 }
