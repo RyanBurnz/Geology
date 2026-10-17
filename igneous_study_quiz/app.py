@@ -186,16 +186,24 @@ def reveal_button(item, keys):
             st.info(item["explanation"])
 
 def next_question():
-    # Tell the next page load to scroll to the top.
     st.session_state.scroll_to_top = True
 
-    if st.session_state.quiz_index + 1 >= len(st.session_state.quiz_items):
+    if st.session_state.quiz_index + 1 >= len(
+        st.session_state.quiz_items
+    ):
         st.session_state.quiz_started = False
         st.session_state.quiz_finished = True
     else:
         st.session_state.quiz_index += 1
 
     st.rerun()
+
+
+def previous_question():
+    if st.session_state.quiz_index > 0:
+        st.session_state.scroll_to_top = True
+        st.session_state.quiz_index -= 1
+        st.rerun()
 
 def render_mineral(item, all_minerals):
     show_mineral(item)
@@ -209,8 +217,24 @@ def render_mineral(item, all_minerals):
         else:
             st.error("Not quite. Try again — attempts are unlimited.")
     reveal_button(item, ["mineral"])
-    if st.button("Next specimen", key=f"next_min_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
-        next_question()
+    col_prev, col_next = st.columns(2)
+
+    with col_prev:
+        if st.button(
+                "← Previous question",
+                key=f"prev_min_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}",
+                disabled=st.session_state.quiz_index == 0,
+                use_container_width=True,
+        ):
+            previous_question()
+
+    with col_next:
+        if st.button(
+                "Next specimen →",
+                key=f"next_min_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}",
+                use_container_width=True,
+        ):
+            next_question()
 
 
 def render_hand_sample(item, minerals):
@@ -356,8 +380,24 @@ def render_hand_sample(item, minerals):
         if item.get("explanation"):
             st.info(item["explanation"])
 
-    if st.button("Next specimen", key=f"hand_next_{run}_{idx}"):
-        next_question()
+    col_prev, col_next = st.columns(2)
+
+    with col_prev:
+        if st.button(
+                "← Previous question",
+                key=f"prev_hand_{run}_{idx}",
+                disabled=idx == 0,
+                use_container_width=True,
+        ):
+            previous_question()
+
+    with col_next:
+        if st.button(
+                "Next specimen →",
+                key=f"hand_next_{run}_{idx}",
+                use_container_width=True,
+        ):
+            next_question()
 
 
 def render_thin_section_rock(item, minerals):
@@ -521,24 +561,63 @@ def render_thin_section_rock(item, minerals):
         if item.get("explanation"):
             st.info(item["explanation"])
 
-    if st.button("Next specimen", key=f"thin_next_{run}_{idx}"):
-        next_question()
+    col_prev, col_next = st.columns(2)
+
+    with col_prev:
+        if st.button(
+                "← Previous question",
+                key=f"prev_thin_{run}_{idx}",
+                disabled=idx == 0,
+                use_container_width=True,
+        ):
+            previous_question()
+
+    with col_next:
+        if st.button(
+                "Next specimen →",
+                key=f"thin_next_{run}_{idx}",
+                use_container_width=True,
+        ):
+            next_question()
 
 
 st.title("🪨 Igneous Rock Study Lab")
 
-# Scroll to the top after changing questions
-if st.session_state.pop("scroll_top", False):
+# Scroll the main Streamlit page to the top after navigation.
+if st.session_state.pop("scroll_to_top", False):
     components.html(
         """
         <script>
-            window.parent.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        const scrollToTop = () => {
+            try {
+                const doc = window.parent.document;
+
+                const candidates = [
+                    doc.querySelector('[data-testid="stMain"]'),
+                    doc.querySelector('[data-testid="stAppViewContainer"]'),
+                    doc.querySelector('section.main')
+                ];
+
+                for (const el of candidates) {
+                    if (el) {
+                        el.scrollTo({
+                            top: 0,
+                            behavior: "auto"
+                        });
+                    }
+                }
+
+                window.parent.scrollTo(0, 0);
+            } catch (e) {
+                console.log("Could not scroll parent page:", e);
+            }
+        };
+
+        scrollToTop();
+        setTimeout(scrollToTop, 100);
         </script>
         """,
-        height=0,
+        height=1,
     )
 
 st.write("Practice mineral and igneous-rock identification with image-based questions. Attempts are unlimited; use **Reveal answer** whenever you need it.")
