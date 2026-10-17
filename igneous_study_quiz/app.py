@@ -3,6 +3,7 @@ import random
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 BASE_DIR = Path(__file__).parent
 DATA_FILE = BASE_DIR / "specimens.json"
@@ -77,7 +78,51 @@ def show_thin_section(item):
             "xpl" if current_view == "ppl" else "ppl"
         )
         st.rerun()
+def show_mineral(item):
+    """Display one mineral image with a PPL/XPL toggle."""
 
+    if "mineral_view" not in st.session_state:
+        st.session_state.mineral_view = "ppl"
+
+    question_key = (
+        f"{st.session_state.quiz_run_id}-"
+        f"{st.session_state.quiz_index}"
+    )
+
+    # Randomly choose one PPL/XPL pair once per question.
+    if st.session_state.get("mineral_pair_key") != question_key:
+        pairs = item.get("image_pairs", [])
+
+        if pairs:
+            st.session_state.current_mineral_pair = random.choice(pairs)
+        else:
+            st.session_state.current_mineral_pair = None
+
+        st.session_state.mineral_pair_key = question_key
+
+    pair = st.session_state.get("current_mineral_pair")
+
+    if pair:
+        show_image(
+            pair.get(st.session_state.mineral_view),
+            f"Mineral — {st.session_state.mineral_view.upper()}"
+        )
+    else:
+        show_image(item.get("image"), "Mineral")
+
+    button_text = (
+        "Switch to XPL"
+        if st.session_state.mineral_view == "ppl"
+        else "Switch to PPL"
+    )
+
+    if st.button(button_text, key="toggle_mineral_view"):
+        st.session_state.mineral_view = (
+            "xpl"
+            if st.session_state.mineral_view == "ppl"
+            else "ppl"
+        )
+        st.rerun()
 
 def reset_quiz():
     for key in list(st.session_state.keys()):
@@ -141,28 +186,19 @@ def reveal_button(item, keys):
             st.info(item["explanation"])
 
 def next_question():
+    # Tell the next page load to scroll to the top.
+    st.session_state.scroll_to_top = True
+
     if st.session_state.quiz_index + 1 >= len(st.session_state.quiz_items):
         st.session_state.quiz_started = False
         st.session_state.quiz_finished = True
     else:
         st.session_state.quiz_index += 1
+
     st.rerun()
 
 def render_mineral(item, all_minerals):
-    variants = item.get("image_pairs", [])
-    if variants:
-        pair = random.choice(variants) if st.session_state.get("active_pair_key") != f"{st.session_state.quiz_run_id}-{st.session_state.quiz_index}" else st.session_state.get("active_pair")
-        if st.session_state.get("active_pair_key") != f"{st.session_state.quiz_run_id}-{st.session_state.quiz_index}":
-            st.session_state.active_pair = pair
-            st.session_state.active_pair_key = f"{st.session_state.quiz_run_id}-{st.session_state.quiz_index}"
-        pair = st.session_state.active_pair
-        cols = st.columns(2)
-        with cols[0]:
-            show_image(pair.get("ppl"), "PPL")
-        with cols[1]:
-            show_image(pair.get("xpl"), "XPL")
-    else:
-        show_image(item.get("image"), "Thin section")
+    show_mineral(item)
     st.write("Identify the mineral shown.")
     options = [x for x in all_minerals if x != "Other / unsure"]
     choice = st.selectbox("Mineral", options, key=f"mineral_choice_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}")
@@ -490,6 +526,21 @@ def render_thin_section_rock(item, minerals):
 
 
 st.title("🪨 Igneous Rock Study Lab")
+
+# Scroll to the top after changing questions
+if st.session_state.pop("scroll_top", False):
+    components.html(
+        """
+        <script>
+            window.parent.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        </script>
+        """,
+        height=0,
+    )
+
 st.write("Practice mineral and igneous-rock identification with image-based questions. Attempts are unlimited; use **Reveal answer** whenever you need it.")
 
 try:
