@@ -64,8 +64,8 @@
       "texture": "aphanitic",
       "label": "andesite_01",
       "images": {
-        "ppl": "images/thin_sections/andesite_ppl_01.jpg",
-        "xpl": "images/thin_sections/andesite_xpl_01.jpg"
+        "ppl": "images/thin_sections/andesite_ppl_01.png",
+        "xpl": "images/thin_sections/andesite_xpl_01.png"
       },
       "rock_name": "Olivine Pyroxene Andesite",
       "answers": {
@@ -88,8 +88,8 @@
       "texture": "aphanitic",
       "label": "basalt_01",
       "images": {
-        "ppl": "images/thin_sections/basalt_ppl_01.jpg",
-        "xpl": "images/thin_sections/basalt_xpl_01.jpg"
+        "ppl": "images/thin_sections/basalt_ppl_01.png",
+        "xpl": "images/thin_sections/basalt_xpl_01.png"
       },
       "rock_name": "Olivine Pyroxene Basalt",
       "answers": {
@@ -112,8 +112,8 @@
       "texture": "phaneritic",
       "label": "diorite_01",
       "images": {
-        "ppl": "images/thin_sections/diorite_ppl_01.jpg",
-        "xpl": "images/thin_sections/diorite_xpl_01.jpg"
+        "ppl": "images/thin_sections/diorite_ppl_01.png",
+        "xpl": "images/thin_sections/diorite_xpl_01.png"
       },
       "rock_name": "Olivine Pyroxene diorite",
       "answers": {
@@ -136,8 +136,8 @@
       "texture": "phaneritic",
       "label": "gabbro_01",
       "images": {
-        "ppl": "images/thin_sections/gabbro_ppl_01.jpg",
-        "xpl": "images/thin_sections/gabbro_xpl_01.jpg"
+        "ppl": "images/thin_sections/gabbro_ppl_01.png",
+        "xpl": "images/thin_sections/gabbro_xpl_01.png"
       },
       "rock_name": "Pyroxene Olivine gabbro",
       "answers": {
@@ -160,8 +160,8 @@
       "texture": "phaneritic",
       "label": "granite_01",
       "images": {
-        "ppl": "images/thin_sections/granite_ppl_01.jpg",
-        "xpl": "images/thin_sections/granite_xpl_01.jpg"
+        "ppl": "images/thin_sections/granite_ppl_01.png",
+        "xpl": "images/thin_sections/granite_xpl_01.png"
       },
       "rock_name": "Horneblende Muscovite Biotite granite",
       "answers": {
@@ -185,8 +185,8 @@
       "texture": "aphanitic",
       "label": "rhyolite_01",
       "images": {
-        "ppl": "images/thin_sections/rhyolite_ppl_01.jpg",
-        "xpl": "images/thin_sections/rhyolite_xpl_01.jpg"
+        "ppl": "images/thin_sections/rhyolite_ppl_01.png",
+        "xpl": "images/thin_sections/rhyolite_xpl_01.png"
       },
       "rock_name": "rhyolite",
       "answers": {

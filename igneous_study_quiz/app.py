@@ -532,9 +532,9 @@ if st.session_state.get("quiz_started", False):
         if item.get("type") == "mineral":
             render_mineral(item, minerals)
         elif item.get("type") == "hand_sample":
-            render_hand_sample(item, minerals)
+            render_hand_sample(item, DEFAULT_MINERALS)
         elif item.get("type") == "thin_section_rock":
-            render_thin_section_rock(item, minerals)
+            render_thin_section_rock(item, DEFAULT_MINERALS)
 elif st.session_state.get("quiz_finished", False):
     st.success("Round complete! Great work.")
     if st.button("Start another round"):
