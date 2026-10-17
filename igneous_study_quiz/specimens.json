@@ -145,24 +145,57 @@
       "mineral": "Orthopyroxene",
       "image_pairs": [
         {
-          "ppl": "images/minerals/olive_ppl_01.png",
-          "xpl": "images/minerals/olive_xpl_01.png"
+          "ppl": "images/minerals/opx_ppl_01.png",
+          "xpl": "images/minerals/opx_xpl_01.png"
         },
         {
-          "ppl": "images/minerals/olive_ppl_02.png",
-          "xpl": "images/minerals/olive_xpl_02.png"
+          "ppl": "images/minerals/opx_ppl_02.png",
+          "xpl": "images/minerals/opx_xpl_02.png"
         },
         {
-          "ppl": "images/minerals/olive_ppl_03.png",
-          "xpl": "images/minerals/olive_xpl_03.png"
+          "ppl": "images/minerals/opx_ppl_03.png",
+          "xpl": "images/minerals/opx_xpl_03.png"
         }
       ],
       "explanation": "Orthopyroxene"
     },
     {
+      "id": "Plagioclase",
+      "type": "mineral",
+      "label": "m_08",
+      "mineral": "Plagioclase",
+      "image_pairs": [
+        {
+          "ppl": "images/minerals/plag_ppl_01.png",
+          "xpl": "images/minerals/plag_xpl_01.png"
+        },
+        {
+          "ppl": "images/minerals/plag_ppl_02.png",
+          "xpl": "images/minerals/plag_xpl_02.png"
+        },
+        {
+          "ppl": "images/minerals/plag_ppl_03.png",
+          "xpl": "images/minerals/plag_xpl_03.png"
+        },
+        {
+          "ppl": "images/minerals/plag_ppl_04.png",
+          "xpl": "images/minerals/plag_xpl_04.png"
+        },
+        {
+          "ppl": "images/minerals/plag_ppl_05.png",
+          "xpl": "images/minerals/plag_xpl_05.png"
+        },
+        {
+          "ppl": "images/minerals/plag_ppl_06.png",
+          "xpl": "images/minerals/plag_xpl_06.png"
+        }
+      ],
+      "explanation": "Plagioclase"
+    },
+    {
       "id": "Quartz",
       "type": "mineral",
-      "label": "m_01",
+      "label": "m_09",
       "mineral": "Quartz",
       "image_pairs": [
         {
