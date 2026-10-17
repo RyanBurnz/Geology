@@ -292,9 +292,8 @@ def render_hand_sample(item, minerals):
         })
     )
 
-    rock = st.selectbox(
-        "Rock name",
-        rock_choices,
+    rock = st.text_input(
+        "Type the rock name",
         key=f"hand_rock_{run}_{idx}"
     )
 
@@ -454,9 +453,8 @@ def render_thin_section_rock(item, minerals):
     if not rock_choices and item.get("rock_name"):
         rock_choices = [item["rock_name"]]
 
-    rock = st.selectbox(
-        "Rock name",
-        rock_choices,
+    rock = st.text_input(
+        "Type the rock name",
         key=f"thin_rock_{run}_{idx}"
     )
 
