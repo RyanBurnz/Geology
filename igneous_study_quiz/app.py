@@ -79,26 +79,32 @@ def show_thin_section(item):
         )
         st.rerun()
 def show_mineral(item):
-    """Display one mineral image with a PPL/XPL toggle."""
+    """Display a consistent PPL/XPL image pair for each question."""
 
     if "mineral_view" not in st.session_state:
         st.session_state.mineral_view = "ppl"
+
+    # Keep a separate, persistent photo pair for each question.
+    if "mineral_pairs_by_question" not in st.session_state:
+        st.session_state.mineral_pairs_by_question = {}
 
     question_key = (
         f"{st.session_state.quiz_run_id}-"
         f"{st.session_state.quiz_index}"
     )
 
-    if st.session_state.get("mineral_pair_key") != question_key:
+    pairs_by_question = st.session_state.mineral_pairs_by_question
+
+    # Randomly choose a pair only the first time this question appears.
+    if question_key not in pairs_by_question:
         pairs = item.get("image_pairs", [])
 
-        st.session_state.current_mineral_pair = (
+        pairs_by_question[question_key] = (
             random.choice(pairs) if pairs else None
         )
 
-        st.session_state.mineral_pair_key = question_key
-
-    pair = st.session_state.get("current_mineral_pair")
+    # Always retrieve the saved pair for this question.
+    pair = pairs_by_question[question_key]
 
     if pair:
         show_image(
@@ -156,6 +162,8 @@ def start_quiz(specimens, quiz_type, count):
     st.session_state.quiz_run_id = (
         st.session_state.get("quiz_run_id", 0) + 1
     )
+
+    st.session_state.mineral_pairs_by_question = {}
 
     # Reset per-question image selection for the new round.
     st.session_state.pop("mineral_pair_key", None)
