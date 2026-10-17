@@ -129,19 +129,44 @@ def reset_quiz():
         if key.startswith("quiz_") or key.startswith("answer_"):
             del st.session_state[key]
 
+
 def start_quiz(specimens, quiz_type, count):
-    candidates = [s for s in specimens if s.get("type") == quiz_type]
+    candidates = [
+        s for s in specimens
+        if s.get("type") == quiz_type
+    ]
+
     if not candidates:
-        st.error("There are no specimens for this quiz type yet. Add some to specimens.json.")
+        st.error(
+            "There are no specimens for this quiz type yet. "
+            "Add some to specimens.json."
+        )
         return
+
+    # Shuffle only once, when a new round begins.
     random.shuffle(candidates)
     selected = candidates[:min(count, len(candidates))]
+
+    # Store the complete question order in session state.
     st.session_state.quiz_items = selected
     st.session_state.quiz_index = 0
     st.session_state.quiz_type = quiz_type
     st.session_state.quiz_started = True
-    st.session_state.quiz_run_id = st.session_state.get("quiz_run_id", 0) + 1
+    st.session_state.quiz_finished = False
+
+    # A new ID distinguishes this round from previous rounds.
+    st.session_state.quiz_run_id = (
+        st.session_state.get("quiz_run_id", 0) + 1
+    )
+
+    # Reset per-question image selection for the new round.
+    st.session_state.pop("mineral_pair_key", None)
+    st.session_state.pop("current_mineral_pair", None)
+    st.session_state.pop("active_pair_key", None)
+    st.session_state.pop("active_pair", None)
+
     st.rerun()
+
 
 def get_answer(item, key, default=None):
     return item.get("answers", {}).get(key, default)
@@ -185,16 +210,17 @@ def reveal_button(item, keys):
         if item.get("explanation"):
             st.info(item["explanation"])
 
+
 def next_question():
     st.session_state.scroll_to_top = True
 
-    if st.session_state.quiz_index + 1 >= len(
+    if st.session_state.quiz_index + 1 < len(
         st.session_state.quiz_items
     ):
+        st.session_state.quiz_index += 1
+    else:
         st.session_state.quiz_started = False
         st.session_state.quiz_finished = True
-    else:
-        st.session_state.quiz_index += 1
 
     st.rerun()
 
@@ -204,6 +230,7 @@ def previous_question():
         st.session_state.scroll_to_top = True
         st.session_state.quiz_index -= 1
         st.rerun()
+
 
 def render_mineral(item, all_minerals):
     show_mineral(item)
