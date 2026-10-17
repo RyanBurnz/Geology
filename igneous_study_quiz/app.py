@@ -662,7 +662,7 @@ except (OSError, json.JSONDecodeError) as exc:
     st.stop()
 
 st.session_state.all_specimens = specimens
-minerals = [item['id'] for item in specimens]
+minerals = [item['id'] for item in specimens if item['type'] == "mineral"]
 ##minerals = DEFAULT_MINERALS
 quiz_labels = {
     "mineral": "Mineral in thin section",
