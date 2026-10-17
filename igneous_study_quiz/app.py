@@ -101,7 +101,7 @@ def start_quiz(specimens, quiz_type, count):
 def get_answer(item, key, default=None):
     return item.get("answers", {}).get(key, default)
 
-def feedback_numeric(label, entered, target, tolerance=5, suffix="%"):
+def feedback_numeric(label, entered, target, tolerance=10, suffix="%"):
     if target is None:
         st.info("No answer key entered for this field yet.")
         return
@@ -176,146 +176,320 @@ def render_mineral(item, all_minerals):
     if st.button("Next specimen", key=f"next_min_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
         next_question()
 
+
 def render_hand_sample(item, minerals):
     show_image(item.get("image"), "Hand sample")
     answers = item.get("answers", {})
+    idx = st.session_state.quiz_index
+    run = st.session_state.quiz_run_id
+
+    # STEP 1: QAP composition
     st.markdown("#### Step 1 — Estimate QAP composition")
-    st.caption("Estimate the relative percentages of Quartz, K-feldspar and Plagioclase. Use your best estimate; the three numbers do not have to sum to 100 for this first pass.")
+    st.caption(
+        "Estimate Quartz, K-feldspar and Plagioclase. "
+        "Your three estimates must sum to 100%. "
+        "Each mineral is graded within ±10 percentage points."
+    )
+
     qap = {}
     cols = st.columns(3)
-    for col, m in zip(cols, ["quartz", "k_feldspar", "plagioclase"]):
+
+    for col, mineral in zip(
+        cols, ["quartz", "k_feldspar", "plagioclase"]
+    ):
         with col:
-            qap[m] = st.number_input(m.replace("_", " ").title() + " (%)", min_value=0, max_value=100, value=0, step=5, key=f"hand_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}_{m}")
-    if st.button("Check QAP estimates", key=f"hand_qap_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
-        target = answers.get("qap", {})
-        for m, val in qap.items():
-            feedback_numeric(m.replace("_", " ").title(), val, target.get(m))
-    if st.button("Reveal QAP answer", key=f"hand_reveal_qap_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
-        st.write("**QAP target:**", answers.get("qap", "Not supplied"))
+            qap[mineral] = st.number_input(
+                mineral.replace("_", " ").title() + " (%)",
+                min_value=0,
+                max_value=100,
+                value=0,
+                step=5,
+                key=f"hand_{run}_{idx}_{mineral}"
+            )
+
+    if st.button("Check QAP", key=f"hand_qap_{run}_{idx}"):
+        if sum(qap.values()) != 100:
+            st.error(
+                f"Your estimates sum to {sum(qap.values())}%. "
+                "Adjust them so they sum to 100%."
+            )
+        else:
+            target = answers.get("qap", {})
+            if not target:
+                st.warning("No QAP answer key has been supplied.")
+            else:
+                correct = True
+                for mineral, value in qap.items():
+                    expected = target.get(mineral)
+                    if expected is None or abs(value - expected) > 10:
+                        correct = False
+
+                if correct:
+                    st.success("QAP composition correct!")
+                else:
+                    st.warning(
+                        "Not quite. Check the individual estimates "
+                        "below and try again."
+                    )
+                for mineral, value in qap.items():
+                    feedback_numeric(
+                        mineral.replace("_", " ").title(),
+                        value,
+                        target.get(mineral),
+                        tolerance=10
+                    )
+
+    if st.button(
+        "Reveal QAP answer", key=f"hand_reveal_qap_{run}_{idx}"
+    ):
+        st.write("**QAP answer:**", answers.get("qap", "Not supplied"))
+
     st.divider()
-    st.markdown("#### Step 2 — Accessory minerals")
-    accessory_options = item.get("accessory_options", minerals)
-    selected = st.multiselect("Select the most common accessory mineral(s)", accessory_options, key=f"hand_access_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}")
-    if st.button("Check accessory minerals", key=f"hand_check_access_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
+
+    # STEP 2: Accessory minerals
+    st.markdown("#### Step 2 — Identify accessory minerals")
+
+    accessory_options = item.get(
+        "accessory_options", minerals
+    )
+    selected = st.multiselect(
+        "Select the accessory mineral(s) present",
+        accessory_options,
+        key=f"hand_access_{run}_{idx}"
+    )
+
+    if st.button(
+        "Check accessory minerals",
+        key=f"hand_check_access_{run}_{idx}"
+    ):
         target = set(answers.get("accessory_minerals", []))
+
         if set(selected) == target:
             st.success("Correct!")
         else:
-            st.warning(f"Not quite. You selected {len(set(selected) & target)} of {len(target)} target mineral(s). Try again.")
+            st.error("Not quite. Try again.")
+
+    if st.button(
+        "Reveal accessory minerals",
+        key=f"hand_reveal_access_{run}_{idx}"
+    ):
+        st.write(
+            "**Answer:**",
+            answers.get("accessory_minerals", "Not supplied")
+        )
+
     st.divider()
+
+    # STEP 3: Rock name
     st.markdown("#### Step 3 — Name the rock")
-    rock_choices = item.get("rock_options", sorted({s.get("rock_name") for s in st.session_state.all_specimens if s.get("rock_name")}))
-    rock = st.selectbox("Rock name", rock_choices, key=f"hand_rock_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}")
-    if st.button("Check rock name", key=f"hand_check_rock_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
+
+    rock_choices = item.get(
+        "rock_options",
+        sorted({
+            s["rock_name"]
+            for s in st.session_state.all_specimens
+            if s.get("rock_name")
+        })
+    )
+
+    rock = st.selectbox(
+        "Rock name",
+        rock_choices,
+        key=f"hand_rock_{run}_{idx}"
+    )
+
+    if st.button(
+        "Check rock name", key=f"hand_check_rock_{run}_{idx}"
+    ):
         if rock.casefold() == str(item.get("rock_name", "")).casefold():
             st.success("Correct!")
         else:
-            st.error("Not quite — try again.")
-    reveal_button(item, ["qap", "accessory_minerals", "rock_name"])
-    if st.button("Next specimen", key=f"hand_next_{st.session_state.quiz_run_id}_{st.session_state.quiz_index}"):
+            st.error("Not quite. Try again.")
+
+    if st.button(
+        "Reveal rock name", key=f"hand_reveal_rock_{run}_{idx}"
+    ):
+        st.write("**Answer:**", item.get("rock_name", "Not supplied"))
+
+    if st.button("Reveal all answers", key=f"hand_reveal_all_{run}_{idx}"):
+        st.write("**QAP:**", answers.get("qap", "Not supplied"))
+        st.write(
+            "**Accessory minerals:**",
+            answers.get("accessory_minerals", "Not supplied")
+        )
+        st.write("**Rock name:**", item.get("rock_name", "Not supplied"))
+        if item.get("explanation"):
+            st.info(item["explanation"])
+
+    if st.button("Next specimen", key=f"hand_next_{run}_{idx}"):
         next_question()
 
-def render_aphanitic(item, minerals):
+
+def render_thin_section_rock(item, minerals):
     show_thin_section(item)
-    a = item.get("answers", {})
+
+    answers = item.get("answers", {})
     idx = st.session_state.quiz_index
     run = st.session_state.quiz_run_id
-    st.markdown("#### Step 1 — Phenocryst mineralogy")
-    phen_choices = item.get("phenocryst_options", minerals)
-    phen = st.multiselect("Which minerals occur as phenocrysts?", phen_choices, key=f"aph_phen_{run}_{idx}")
-    if st.button("Check phenocrysts", key=f"aph_phen_check_{run}_{idx}"):
-        target = set(a.get("phenocrysts", []))
-        if set(phen) == target:
-            st.success("Correct!")
-        else:
-            st.error("Not quite. Try again.")
-    st.markdown("#### Step 2 — Phenocryst abundance and composition")
-    total = st.number_input("Total phenocrysts (% of whole rock)", 0, 100, 0, 1, key=f"aph_total_{run}_{idx}")
-    phen_values = {}
-    for m in a.get("phenocryst_percentages", {}).keys():
-        phen_values[m] = st.number_input(f"{m} (% of whole rock)", 0, 100, 0, 1, key=f"aph_p_{run}_{idx}_{m}")
-    if st.button("Check phenocryst percentages", key=f"aph_p_check_{run}_{idx}"):
-        feedback_numeric("Total phenocrysts", total, a.get("phenocryst_total"))
-        for m, val in phen_values.items():
-            feedback_numeric(m, val, a.get("phenocryst_percentages", {}).get(m))
-    st.markdown("#### Step 3 — Matrix mineralogy")
-    matrix_options = item.get("matrix_options", minerals)
-    matrix = st.multiselect("Which minerals occur in the matrix?", matrix_options, key=f"aph_matrix_{run}_{idx}")
-    if st.button("Check matrix minerals", key=f"aph_matrix_check_{run}_{idx}"):
-        if set(matrix) == set(a.get("matrix_minerals", [])):
-            st.success("Correct!")
-        else:
-            st.error("Not quite. Try again.")
-    st.markdown("#### Step 4 — Matrix composition")
-    matrix_total = st.number_input("Total matrix (% of whole rock)", 0, 100, 0, 1, key=f"aph_mtotal_{run}_{idx}")
-    matrix_values = {}
-    for m in a.get("matrix_percentages", {}).keys():
-        matrix_values[m] = st.number_input(f"{m} in matrix (% of whole rock)", 0, 100, 0, 1, key=f"aph_mp_{run}_{idx}_{m}")
-    if st.button("Check matrix percentages", key=f"aph_mp_check_{run}_{idx}"):
-        feedback_numeric("Total matrix", matrix_total, a.get("matrix_total"))
-        for m, val in matrix_values.items():
-            feedback_numeric(m, val, a.get("matrix_percentages", {}).get(m))
-    st.markdown("#### Step 5 — Porosity")
-    porosity = st.number_input("Estimate porosity (%)", 0, 100, 0, 1, key=f"aph_porosity_{run}_{idx}")
-    if st.button("Check porosity", key=f"aph_porosity_check_{run}_{idx}"):
-        feedback_numeric("Porosity", porosity, a.get("porosity"))
-    reveal_button(item, ["phenocrysts", "phenocryst_total", "phenocryst_percentages", "matrix_minerals", "matrix_total", "matrix_percentages", "porosity", "rock_name"])
-    if st.button("Next specimen", key=f"aph_next_{run}_{idx}"):
-        next_question()
 
-def render_phaneritic(item, minerals):
-    show_thin_section(item)
-    a = item.get("answers", {})
-    idx, run = st.session_state.quiz_index, st.session_state.quiz_run_id
-    st.markdown("#### Step 1 — Estimate QAP percentages")
+    # STEP 1: QAP composition
+    st.markdown("#### Step 1 — Estimate QAP composition")
+    st.caption(
+        "Estimate Quartz, K-feldspar and Plagioclase normalized to 100% "
+        "Your three estimates must sum to 100%. "
+        "Each mineral is graded within ±10 percentage points."
+    )
+
     qap = {}
     cols = st.columns(3)
-    for col, m in zip(cols, ["quartz", "k_feldspar", "plagioclase"]):
+
+    for col, mineral in zip(
+        cols, ["quartz", "k_feldspar", "plagioclase"]
+    ):
         with col:
-            qap[m] = st.number_input(m.replace("_", " ").title() + " (%)", 0, 100, 0, 1, key=f"phan_qap_{run}_{idx}_{m}")
-    if st.button("Check QAP estimates", key=f"phan_qap_check_{run}_{idx}"):
-        for m, val in qap.items():
-            feedback_numeric(m.replace("_", " ").title(), val, a.get("qap", {}).get(m))
-    st.markdown("#### Step 2 — Normalize QAP to 100%")
-    st.caption("Enter a normalized QAP estimate that sums to 100%, preserving your estimated ratio.")
-    norm = {}
-    cols = st.columns(3)
-    for col, m in zip(cols, ["quartz", "k_feldspar", "plagioclase"]):
-        with col:
-            norm[m] = col.number_input(m.replace("_", " ").title() + " normalized (%)", 0, 100, 0, 1, key=f"phan_norm_{run}_{idx}_{m}")
-    if st.button("Check normalized QAP", key=f"phan_norm_check_{run}_{idx}"):
-        if sum(norm.values()) != 100:
-            st.error(f"These values sum to {sum(norm.values())}%, not 100%.")
+            qap[mineral] = st.number_input(
+                mineral.replace("_", " ").title() + " (%)",
+                min_value=0,
+                max_value=100,
+                value=0,
+                step=5,
+                key=f"thin_qap_{run}_{idx}_{mineral}"
+            )
+
+    if st.button("Check QAP", key=f"thin_qap_check_{run}_{idx}"):
+        if sum(qap.values()) != 100:
+            st.error(
+                f"Your estimates sum to {sum(qap.values())}%. "
+                "Adjust them so they sum to 100%."
+            )
         else:
-            target = a.get("qap_normalized", a.get("qap", {}))
-            for m, val in norm.items():
-                feedback_numeric(m.replace("_", " ").title(), val, target.get(m))
-    st.markdown("#### Step 3 — Choose the rock type")
-    type_options = item.get("rock_type_options", ["Granite", "Diorite", "Gabbro", "Granodiorite", "Syenite", "Tonalite"])
-    rock_type = st.radio("Rock type", type_options, key=f"phan_type_{run}_{idx}")
-    if st.button("Check rock type", key=f"phan_type_check_{run}_{idx}"):
-        if rock_type.casefold() == str(item.get("rock_type", "")).casefold():
+            target = answers.get(
+                "qap_normalized", answers.get("qap", {})
+            )
+
+            if not target:
+                st.warning("No QAP answer key has been supplied.")
+            else:
+                correct = all(
+                    mineral in target
+                    and abs(value - target[mineral]) <= 10
+                    for mineral, value in qap.items()
+                )
+
+                if correct:
+                    st.success("QAP composition correct!")
+                else:
+                    st.warning(
+                        "Not quite. Check the individual estimates "
+                        "below and try again."
+                    )
+
+                for mineral, value in qap.items():
+                    feedback_numeric(
+                        mineral.replace("_", " ").title(),
+                        value,
+                        target.get(mineral),
+                        tolerance=10
+                    )
+
+    if st.button(
+        "Reveal QAP answer", key=f"thin_qap_reveal_{run}_{idx}"
+    ):
+        st.write(
+            "**QAP answer:**",
+            answers.get(
+                "qap_normalized", answers.get("qap", "Not supplied")
+            )
+        )
+
+    st.divider()
+
+    # STEP 2: Accessory mineral identification
+    st.markdown("#### Step 2 — Identify accessory minerals")
+
+    # Use an explicit answer list if supplied. Otherwise, use the
+    # keys of accessory_percentages as the correct mineral list.
+    accessory_targets = answers.get("accessory_minerals")
+    if accessory_targets is None:
+        accessory_targets = list(
+            answers.get("accessory_percentages", {}).keys()
+        )
+
+    accessory_options = item.get(
+        "accessory_options",
+        item.get("mineral_options", minerals)
+    )
+
+    selected = st.multiselect(
+        "Select the accessory mineral(s) present",
+        accessory_options,
+        key=f"thin_access_{run}_{idx}"
+    )
+
+    if st.button(
+        "Check accessory minerals",
+        key=f"thin_access_check_{run}_{idx}"
+    ):
+        if set(selected) == set(accessory_targets):
             st.success("Correct!")
         else:
             st.error("Not quite. Try again.")
-    st.markdown("#### Step 4 — Estimate accessory minerals")
-    accessory_values = {}
-    for m in a.get("accessory_percentages", {}).keys():
-        accessory_values[m] = st.number_input(f"{m} (% of whole rock)", 0, 100, 0, 1, key=f"phan_acc_{run}_{idx}_{m}")
-    if st.button("Check accessory percentages", key=f"phan_acc_check_{run}_{idx}"):
-        for m, val in accessory_values.items():
-            feedback_numeric(m, val, a.get("accessory_percentages", {}).get(m))
-    st.markdown("#### Step 5 — Name the rock")
-    rock_choices = item.get("rock_name_options", [item.get("rock_name", "Unknown")])
-    rock_name = st.selectbox("Rock name including accessory minerals", rock_choices, key=f"phan_name_{run}_{idx}")
-    if st.button("Check rock name", key=f"phan_name_check_{run}_{idx}"):
-        if rock_name.casefold() == str(item.get("rock_name", "")).casefold():
+
+    if st.button(
+        "Reveal accessory minerals",
+        key=f"thin_access_reveal_{run}_{idx}"
+    ):
+        st.write("**Answer:**", accessory_targets or "Not supplied")
+
+    st.divider()
+
+    # STEP 3: Full rock name
+    st.markdown("#### Step 3 — Name the rock")
+
+    rock_choices = item.get(
+        "rock_name_options",
+        item.get("rock_options", [])
+    )
+
+    if not rock_choices and item.get("rock_name"):
+        rock_choices = [item["rock_name"]]
+
+    rock = st.selectbox(
+        "Rock name",
+        rock_choices,
+        key=f"thin_rock_{run}_{idx}"
+    )
+
+    if st.button(
+        "Check rock name", key=f"thin_rock_check_{run}_{idx}"
+    ):
+        if rock.casefold() == str(item.get("rock_name", "")).casefold():
             st.success("Correct!")
         else:
             st.error("Not quite. Try again.")
-    reveal_button(item, ["qap", "qap_normalized", "rock_type", "accessory_percentages", "rock_name"])
-    if st.button("Next specimen", key=f"phan_next_{run}_{idx}"):
+
+    if st.button(
+        "Reveal rock name", key=f"thin_rock_reveal_{run}_{idx}"
+    ):
+        st.write("**Answer:**", item.get("rock_name", "Not supplied"))
+
+    if st.button(
+        "Reveal all answers", key=f"thin_reveal_all_{run}_{idx}"
+    ):
+        st.write(
+            "**QAP:**",
+            answers.get(
+                "qap_normalized", answers.get("qap", "Not supplied")
+            )
+        )
+        st.write("**Accessory minerals:**", accessory_targets or "Not supplied")
+        st.write("**Rock name:**", item.get("rock_name", "Not supplied"))
+        if item.get("explanation"):
+            st.info(item["explanation"])
+
+    if st.button("Next specimen", key=f"thin_next_{run}_{idx}"):
         next_question()
+
 
 st.title("🪨 Igneous Rock Study Lab")
 st.write("Practice mineral and igneous-rock identification with image-based questions. Attempts are unlimited; use **Reveal answer** whenever you need it.")
@@ -360,10 +534,7 @@ if st.session_state.get("quiz_started", False):
         elif item.get("type") == "hand_sample":
             render_hand_sample(item, minerals)
         elif item.get("type") == "thin_section_rock":
-            if item.get("texture", "phaneritic").lower() == "aphanitic":
-                render_aphanitic(item, minerals)
-            else:
-                render_phaneritic(item, minerals)
+            render_thin_section_rock(item, minerals)
 elif st.session_state.get("quiz_finished", False):
     st.success("Round complete! Great work.")
     if st.button("Start another round"):

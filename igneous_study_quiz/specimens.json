@@ -59,15 +59,15 @@
       "explanation": "Example values only. Replace them with your course's specimen data."
     },
     {
-      "id": "thin_section_example_aphanitic",
+      "id": "andesite_01",
       "type": "thin_section_rock",
       "texture": "aphanitic",
-      "label": "Example aphanitic thin section \u2014 replace with your own",
+      "label": "andesite_01",
       "images": {
-        "ppl": "images/thin_sections/porphyritic_basalt_ppl.jpg",
-        "xpl": "images/thin_sections/porphyritic_basalt_xpl.jpg"
+        "ppl": "images/thin_sections/andesite_ppl_01.jpg",
+        "xpl": "images/thin_sections/andesite_xpl_01.jpg"
       },
-      "rock_name": "Porphyritic Basalt",
+      "rock_name": "Olivine Basalt",
       "phenocryst_options": [
         "Plagioclase",
         "Olivine",
@@ -83,30 +83,56 @@
         "Magnetite"
       ],
       "answers": {
-        "phenocrysts": [
-          "Plagioclase",
-          "Olivine"
-        ],
-        "phenocryst_total": 20,
-        "phenocryst_percentages": {
-          "Plagioclase": 12,
-          "Olivine": 8
+        "qap": {
+          "quartz": 0,
+          "k_feldspar": 0,
+          "plagioclase": 100
         },
-        "matrix_minerals": [
-          "Plagioclase",
-          "Pyroxene",
-          "Magnetite"
-        ],
-        "matrix_total": 78,
-        "matrix_percentages": {
-          "Plagioclase": 38,
-          "Pyroxene": 35,
-          "Magnetite": 5
-        },
-        "porosity": 2,
-        "rock_name": "Porphyritic Basalt"
+        "accessory_minerals": ["Biotite"],
+        "accessory_percentages": {
+          "Olivine": 5,
+          "Pyroxene": 5
+        }
       },
-      "explanation": "Example values only; matrix and phenocryst percentages are expressed as percentages of the whole rock."
+      "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
+    },
+    {
+      "id": "basalt_01",
+      "type": "thin_section_rock",
+      "texture": "aphanitic",
+      "label": "basalt_01",
+      "images": {
+        "ppl": "images/thin_sections/basalt_ppl_01.jpg",
+        "xpl": "images/thin_sections/basalt_xpl_01.jpg"
+      },
+      "rock_name": "Olivine Basalt",
+      "phenocryst_options": [
+        "Plagioclase",
+        "Olivine",
+        "Pyroxene",
+        "Quartz",
+        "K-feldspar"
+      ],
+      "matrix_options": [
+        "Plagioclase",
+        "Pyroxene",
+        "Olivine",
+        "Glass",
+        "Magnetite"
+      ],
+      "answers": {
+        "qap": {
+          "quartz": 0,
+          "k_feldspar": 0,
+          "plagioclase": 100
+        },
+        "accessory_minerals": ["Biotite"],
+        "accessory_percentages": {
+          "Olivine": 5,
+          "Pyroxene": 5
+        }
+      },
+      "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
     },
     {
       "id": "thin_section_example_phaneritic",
