@@ -59,7 +59,7 @@
       "explanation": "Example values only. Replace them with your course's specimen data."
     },
     {
-      "id": "andesite_01",
+      "id": "tsr_01",
       "type": "thin_section_rock",
       "texture": "aphanitic",
       "label": "andesite_01",
@@ -83,7 +83,7 @@
       "explanation": "yep the sample is the same as the basalt.... hopefully we get a hand sample in lab"
     },
     {
-      "id": "basalt_01",
+      "id": "tsr_02",
       "type": "thin_section_rock",
       "texture": "aphanitic",
       "label": "basalt_01",
@@ -107,7 +107,7 @@
       "explanation": "I just had to estimate these too lol - happy to get feedback and shift some numbers"
     },
     {
-      "id": "diorite_01",
+      "id": "tsr_03",
       "type": "thin_section_rock",
       "texture": "phaneritic",
       "label": "diorite_01",
@@ -131,7 +131,7 @@
       "explanation": "yep the sample is basically the same min % as the gabbro.... hopefully we get a hand sample in lab"
     },
     {
-      "id": "gabbro_01",
+      "id": "tsr_04",
       "type": "thin_section_rock",
       "texture": "phaneritic",
       "label": "gabbro_01",
@@ -155,7 +155,7 @@
       "explanation": "this is basically the only legible thin section (note pyroxene in gabbro is usually clino"
     },
     {
-      "id": "granite_01",
+      "id": "tsr_05",
       "type": "thin_section_rock",
       "texture": "phaneritic",
       "label": "granite_01",
@@ -180,7 +180,7 @@
       "explanation": "I decided to say this is muscovite over olivine as olivine rarely coexists with Quartz"
     },
     {
-      "id": "rhyolite_01",
+      "id": "tsr_06",
       "type": "thin_section_rock",
       "texture": "aphanitic",
       "label": "rhyolite_01",
